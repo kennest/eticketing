@@ -12,8 +12,15 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        #adminlogin{
+            background-image: url("../imgs/admin-bg.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
 </head>
-<body>
+<body id="adminlogin">
 <div id="app">
     <!--Navbar-->
     @auth

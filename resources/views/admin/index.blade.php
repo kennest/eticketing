@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="container">
             <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
                 <!--Indicators-->
                 <ol class="carousel-indicators">
@@ -41,6 +40,4 @@
                 <!--/.Controls-->
             </div>
             <!--/.Carousel Wrapper-->
-
-    </div>
 @endsection
