@@ -15,12 +15,13 @@ class CreateEvenementTable extends Migration
     {
         Schema::create('evenements', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
+            $table->string('title')->unique();
             $table->longText('uuid');
             $table->string('description');
-            $table->integer('tickets');
+            $table->integer('tickets')->default(0);
             $table->string('picture');
-            $table->date('begin');
+            $table->boolean('statut')->default(0);
+            $table->date('begin')->useCurrent();
             $table->date('end');
 
             $table->integer('admin_id')->unsigned();

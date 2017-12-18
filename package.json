@@ -11,17 +11,11 @@
     },
     "devDependencies": {
         "axios": "^0.17",
-        "bootstrap": "4.0.0-alpha.6",
+        "bootstrap-sass": "^3.3.7",
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^1.0",
         "lodash": "^4.17.4",
-        "motion-ui": "^1.2.3",
-        "popper.js": "^1.12.9",
         "vue": "^2.5.7"
-    },
-    "dependencies": {
-        "remove": "^0.1.5",
-        "tooltip.js": "^1.1.7"
     }
 }

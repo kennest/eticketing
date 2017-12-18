@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
+    <div style="position: relative; left: 43%; color: white;" class="logo">
+    </div>
     <div class="container" style="margin-top: 150px;">
         <div class="row justify-content-md-center">
             <div class="col-6">
@@ -10,7 +12,7 @@
                     <div class="card-body">
                         <form class="form-horizontal" method="POST" action="{{ route('admin.login.submit') }}">
                             {{ csrf_field() }}
-
+                                @include('errors.validation')
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <label for="email" class="col-12 control-label">E-Mail</label>
 
@@ -61,8 +63,9 @@
                                         Mot de passe oublié?
                                     </a>
                                 </div>
+                                <p>&nbsp;</p>
                                 <div class="col-12">
-                                    <a href="{{ route('password.request') }}">
+                                    <a href="{{ route('admin.register') }}" class="btn btn-outline-success btn-block">
                                         Créer un compte
                                     </a>
                                 </div>

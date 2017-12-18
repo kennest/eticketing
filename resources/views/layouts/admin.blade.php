@@ -13,9 +13,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
-        #adminlogin{
-            background-image: url("../imgs/admin-bg.jpg");
-            background-size: cover;
+         .logo{
+            background-image: url("../imgs/logo.png");
             background-repeat: no-repeat;
         }
     </style>
@@ -29,16 +28,18 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <a class="navbar-brand" href="#">{{env('APP_NAME')}}</a>
+                <a class="navbar-brand" href="#">
+                    <img alt="Brand" src="{{asset('imgs/logo.png')}}">
+                </a>
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Tableau de bord <span class="sr-only">(current)</span></a>
+                    <li class="nav-item {{{ (Request::is('admin') ? 'active' : '') }}}">
+                        <a class="nav-link" href="{{route('admin.index')}}">Tableau de bord <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {{{ (Request::is('admin/form/event') ? 'active' : '') }}}">
                         <a class="nav-link" href="{{route('admin.form.event')}}">Publier un evenement</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Liste des evenements publiés</a>
+                    <li class="nav-item {{{ (Request::is('admin/list/event') ? 'active' : '') }}}">
+                        <a class="nav-link" href="{{route('admin.list.event')}}">Liste des evenements publiés</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
@@ -61,7 +62,7 @@
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </div>
         </nav>

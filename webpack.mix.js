@@ -1,5 +1,5 @@
 var mix = require('laravel-mix');
-let webpack = require('webpack');
+var webpack = require('webpack');
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management

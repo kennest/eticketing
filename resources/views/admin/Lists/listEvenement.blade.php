@@ -39,4 +39,7 @@
     <ul class="pagination">
         {!! $events->links() !!}
     </ul>
+    <p>
+        <a class="btn btn-block btn-info" href="{{ URL::previous()}}">Retour</a>
+    </p>
 @endsection

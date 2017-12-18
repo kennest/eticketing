@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClient extends Migration
+class CreateParticipantTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateClient extends Migration
      */
     public function up()
     {
-        Schema::create('clients',function (Blueprint $table){
+        Schema::create('participants', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('number')->unique();
-            $table->string('keyword');
-            $table->string('email');
+            $table->string("name");
+            $table->string('profession');
+            $table->integer('evenement_id')->unsigned();
+            $table->foreign('evenement_id')
+                ->references('id')->on('evenements')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreateClient extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clients');
+        Schema::dropIfExists('participants');
     }
 }
