@@ -23,7 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        dd(bcrypt('kenny1990'));
+        //dd(bcrypt('kenny1990'));
         return view('home');
     }
 }
