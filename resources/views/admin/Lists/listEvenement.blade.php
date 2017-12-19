@@ -4,7 +4,7 @@
     <div class="row">
     @foreach($events as $e)
             <div class="card col-4" style="padding-left: 0px;padding-right: 0px;">
-                <img class="card-img-top" src="{{Storage::url($e->picture)}}" alt="Card image cap">
+                <img class="card-img-top" src="{{Storage::url($e->picture)}}" height="200" alt="Card image cap">
                 <div class="card-body">
                     <h4 class="card-title">{{$e->title}}</h4>
                     <p class="card-text">

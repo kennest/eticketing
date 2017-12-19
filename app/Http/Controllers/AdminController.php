@@ -43,19 +43,25 @@ class AdminController extends Controller
             array_push($Lieux, $e->lieu->label);
         }
 
-        $eventsTypeChart = Charts::database($events, 'pie', 'google')
+        $eventsByTypeChart = Charts::database($events, 'pie', 'google')
                   ->title("Classification par Categorie d'evenement")
-                  ->responsive(false)
+                  ->responsive(true)
                   ->groupBy('type.type')
                   ->labels($Types);
 
-        $eventsLieuChart=Charts::database($events, 'pie', 'google')
+        $eventsByLieuChart=Charts::database($events, 'pie', 'google')
                   ->title("Classification par Lieu :")
-                  ->responsive(false)
+                  ->responsive(true)
                   ->groupBy('lieu.label')
                   ->labels($Lieux);
 
-        return view('admin.index', compact('eventsTypeChart', 'eventsLieuChart'));
+        $eventsByDateChart=Charts::database($events, 'bar', 'google')
+                  ->title("Classification par Date de publication:")
+                  ->responsive(true)
+                  ->groupByMonth()
+                  ->elementLabel("Total par mois");
+
+        return view('admin.index', compact('eventsByTypeChart', 'eventsByLieuChart', 'eventsByDateChart'));
     }
 
     //List Events
@@ -123,7 +129,7 @@ class AdminController extends Controller
             $event->classeTickets()->save($public);
         }
         $event->save();
-        return view('admin.Lists.listEvenement');
+        $this->listEvent();
     }
 
     //Update
