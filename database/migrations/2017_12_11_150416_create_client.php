@@ -13,10 +13,12 @@ class CreateClient extends Migration
      */
     public function up()
     {
-        Schema::create('clients',function (Blueprint $table){
+        Schema::create('clients', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('number')->unique();
+            $table->date('birthday');
+            $table->string('gender');
             $table->string('keyword');
             $table->string('email');
             $table->timestamps();

@@ -11,25 +11,26 @@
  */
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'ClientController@index')->name('home');
+
 Route::prefix('admin')->group(function () {
-		Route::get('/login','Auth\AdminLoginController@showLoginForm')->name('admin.login');
-		Route::get('/register','Auth\AdminLoginController@showRegisterForm')->name('admin.register');
+    Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+    Route::get('/register', 'Auth\AdminLoginController@showRegisterForm')->name('admin.register');
 
-		Route::post('/doLogin', 'Auth\AdminLoginController@login')->name('admin.login.submit');
-		Route::post('/doRegister', 'Auth\AdminLoginController@register')->name('admin.register.submit');
+    Route::post('/doLogin', 'Auth\AdminLoginController@login')->name('admin.login.submit');
+    Route::post('/doRegister', 'Auth\AdminLoginController@register')->name('admin.register.submit');
 
-		Route::get('logout/', 'Auth\AdminLoginController@logout')->name('admin.logout');
+    Route::get('logout/', 'Auth\AdminLoginController@logout')->name('admin.logout');
 
-		//Events Form actions
-		Route::get('form/event/{uuid?}', 'AdminController@formEvent')->name('admin.form.event');
-		Route::post('event/save', 'AdminController@save')->name('admin.save.event');
-		Route::post('update', 'AdminController@update')->name('admin.update.event');
+    //Events Form actions
+    Route::get('form/event/{uuid?}', 'AdminController@formEvent')->name('admin.form.event');
+    Route::post('event/save', 'AdminController@save')->name('admin.save.event');
+    Route::post('update', 'AdminController@update')->name('admin.update.event');
 
-		//Events List
-		Route::get('list/event/', 'AdminController@listEvent')->name('admin.list.event');
-		Route::get('event/delete/{uuid}', 'AdminController@delete');
+    //Events List
+    Route::get('list/event/', 'AdminController@listEvent')->name('admin.list.event');
+    Route::get('event/delete/{uuid}', 'AdminController@delete');
 
-		Route::get('/', 'AdminController@index')->name('admin.index');
-		Route::get('/goPrime', 'AdminController@goPrime')->name('admin.goprime');
-	});
+    Route::get('/', 'AdminController@index')->name('admin.index');
+    Route::get('/goPrime', 'AdminController@goPrime')->name('admin.goprime');
+});

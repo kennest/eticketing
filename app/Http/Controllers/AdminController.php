@@ -17,6 +17,7 @@ use Charts;
 use Illuminate\Http\Request;
 use Jenssegers\Date\Date;
 use App\Models\TypeOrganisateur;
+use Intervention\Image\Facades\Image;
 
 class AdminController extends Controller
 {
@@ -56,7 +57,7 @@ class AdminController extends Controller
                   ->labels($Lieux);
 
         $eventsByDateChart=Charts::database($events, 'bar', 'google')
-                  ->title("Classification par Date de publication:")
+                  ->title("Nombre d'evenement par Date de publication:")
                   ->responsive(true)
                   ->groupByMonth()
                   ->elementLabel("Total par mois");
@@ -109,8 +110,13 @@ class AdminController extends Controller
             'public'
         );
 
+        $image=Image::make(storage_path().'/app/public/'.$path);
+        $image->fit(1500, 750);
+        $image->save($image->basename);
+
         $event->admin()->associate(auth()->user());
         $event->picture = $path;
+        dd($event);
         $event->type()->associate($type);
         $lieu->evenement()->save($event);
 
@@ -146,7 +152,7 @@ class AdminController extends Controller
     //Go Prime
     public function goPrime()
     {
-        dd("En cours de traitement...");
+        /*
         Auth::user()->role = 1;
         Auth::user()->save();
         $events = Auth::user()->evenements()->get();
@@ -162,7 +168,7 @@ class AdminController extends Controller
             $public->price    = 0;
             $event->classeTickets()->save($vip);
             $event->classeTickets()->save($public);
-        }
-        return redirect()->intended('admin.index');
+        }**/
+        return view('admin.Goprime.checkout');
     }
 }
