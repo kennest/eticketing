@@ -12,10 +12,12 @@ class TypeSeeder extends Seeder
     public function run()
     {
         DB::table('types')->insert([
-            'type' => 'Concert'
+            'type' => 'Concert',
+            'categorie_id'=>1
         ]);
         DB::table('types')->insert([
-            'type' => 'Forum'
+            'type' => 'Forum',
+            'categorie_id'=>2
         ]);
     }
 }

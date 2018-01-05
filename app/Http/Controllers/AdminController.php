@@ -18,6 +18,8 @@ use Illuminate\Http\Request;
 use Jenssegers\Date\Date;
 use App\Models\TypeOrganisateur;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Categorie;
 
 class AdminController extends Controller
 {
@@ -34,7 +36,7 @@ class AdminController extends Controller
         $Types=array();
         $Lieux=array();
         $events=Evenement::where('admin_id', auth()->id())->get();
-        $events->load('type', 'lieu');
+        $events->load('type.categorie', 'lieu');
 
         foreach ($events as $e) {
             array_push($Types, $e->type->type);
@@ -88,10 +90,12 @@ class AdminController extends Controller
     //Save
     public function save(Request $request)
     {
-        //        $this->validate($request,[
-        //            'title'=>'required|unique',
-        //            'description'=>'required'
-        //        ]);
+        $this->validate($request, [
+                   'title'=>'required|unique:evenements',
+                   'description'=>'required',
+                   'begin'=>'required',
+                   'end'=>'required'
+               ]);
         $event = new Evenement();
         $uuid  = md5($request->input('title').time());
 
@@ -110,13 +114,8 @@ class AdminController extends Controller
             'public'
         );
 
-        $image=Image::make(storage_path().'/app/public/'.$path);
-        $image->fit(1500, 750);
-        $image->save($image->basename);
-
         $event->admin()->associate(auth()->user());
         $event->picture = $path;
-        dd($event);
         $event->type()->associate($type);
         $lieu->evenement()->save($event);
 
@@ -170,5 +169,13 @@ class AdminController extends Controller
             $event->classeTickets()->save($public);
         }**/
         return view('admin.Goprime.checkout');
+    }
+
+    public function getSousCategorie(Request $request)
+    {
+        $categorie=Categorie::find($request->input('id'));
+        $categorie->load('types');
+        $types=$categorie->types;
+        return $types->tojson();
     }
 }

@@ -33,4 +33,12 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/', 'AdminController@index')->name('admin.index');
     Route::get('/goPrime', 'AdminController@goPrime')->name('admin.goprime');
+    Route::get('/sousCat', 'AdminController@getSousCategorie')->name('admin.souscat');
+});
+
+Route::prefix('superadmin')->group(function () {
+    Route::get('/', 'SuperAdminController@index')->name('supadmin.index');
+    Route::get('/organisateurs', 'SuperAdminController@organisateur')->name('supadmin.org');
+    Route::get('/parametres', 'SuperAdminController@parametres')->name('supadmin.params');
+    Route::get('/toggle', 'SuperAdminController@toggleMode')->name('supadmin.toggle');
 });

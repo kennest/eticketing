@@ -13724,7 +13724,9 @@ try {
   __webpack_provided_window_dot_$ = __webpack_provided_window_dot_jQuery = __webpack_require__(1);
   window.Popper = __WEBPACK_IMPORTED_MODULE_0_popper_js_dist_umd_popper_js___default.a;
   __webpack_require__(16);
-} catch (e) {}
+} catch (e) {
+  console.log("Mix:", e);
+}
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces

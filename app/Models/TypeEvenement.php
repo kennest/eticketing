@@ -8,11 +8,14 @@
 
 namespace App\Models;
 
-
 use Illuminate\Database\Eloquent\Model;
 
 class TypeEvenement extends Model
 {
     protected $table='types';
 
+    public function categorie()
+    {
+        return $this->belongsTo(Categorie::class);
+    }
 }

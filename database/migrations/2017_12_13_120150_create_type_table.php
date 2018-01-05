@@ -13,10 +13,19 @@ class CreateTypeTable extends Migration
      */
     public function up()
     {
+        Schema::create('categories', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('categorie')->unique();
+            $table->timestamps();
+        });
         Schema::create('types', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('type');
+            $table->string('type')->unique();
             $table->timestamps();
+            $table->integer('categorie_id');
+            $table->foreign('categorie_id')
+            ->references('id')->on('categories')
+            ->onDelete('cascade');
         });
     }
 
@@ -27,6 +36,7 @@ class CreateTypeTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('categories');
         Schema::dropIfExists('types');
     }
 }

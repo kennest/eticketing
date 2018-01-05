@@ -22,9 +22,7 @@
 </head>
 
 <body id="adminlogin">
-	<div id="app">
 		<!--Navbar-->
-		@auth
 		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 			<a class="navbar-brand" href="#">
 				<img alt="Brand" src="{{asset('imgs/logo.png')}}">
@@ -35,23 +33,22 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarText">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item {{{ (Request::is('admin') ? 'active' : '') }}}">
-						<a class="nav-link" href="{{route('admin.index')}}">Tableau de bord
+					<li class="nav-item {{{ (Request::is('superadmin') ? 'active' : '') }}}">
+						<a class="nav-link" href="{{route('supadmin.index')}}">Tableau de bord
 							<span class="sr-only">(current)</span>
 						</a>
 					</li>
-					<li class="nav-item {{{ (Request::is('admin/form/event') ? 'active' : '') }}}">
-						<a class="nav-link" href="{{route('admin.form.event')}}">Publier un evenement</a>
+					<li class="nav-item {{{ (Request::is('superadmin/organisateurs') ? 'active' : '') }}}">
+						<a class="nav-link" href="{{route('supadmin.org')}}">Organisateur</a>
 					</li>
-					<li class="nav-item {{{ (Request::is('admin/list/event') ? 'active' : '') }}}">
-						<a class="nav-link" href="{{route('admin.list.event')}}">Liste des evenements publiés</a>
+					<li class="nav-item {{{ (Request::is('superadmin/parametres') ? 'active' : '') }}}">
+						<a class="nav-link" href="{{route('supadmin.params')}}">Parametres</a>
 					</li>
 				</ul>
 				<ul class="navbar-nav">
 					<li class="nav-item dropdown">
 						<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
 						 aria-expanded="true">
-							{{Auth()->user()->name}}
 						</button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
 							<li class="dropdown-item">
@@ -72,17 +69,14 @@
 				</form>
 			</div>
 		</nav>
-		@else {{--
-		<a href="{{ route('admin.login') }}">Login</a>--}} {{--
-		<a href="{{ route('register') }}">Register</a>--}} @endauth
-
 		<!--/.Navbar-->
 		<div class="container">
 			@yield('content')
-		</div>
-	</div>
+    </div>
 	<!-- Scripts -->
 	<script src="{{ asset('js/app.js') }}"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	@yield('scripts')
 </body>
 
