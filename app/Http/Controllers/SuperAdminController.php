@@ -139,7 +139,7 @@ class SuperAdminController extends Controller
         $banner->picture=$path;
         $banner->description=$request->input('description');
         $banner->save();
-        return redirect()->route('supadmin.banner')->withErrors();
+        return redirect()->route('supadmin.banner');
     }
     public function updatebanner(Request $request)
     {
@@ -152,7 +152,7 @@ class SuperAdminController extends Controller
         $banner->picture=$path;
         $banner->description=$request->input('description');
         $banner->save();
-        return redirect()->route('supadmin.banner')->withErrors();
+        return redirect()->route('supadmin.banner');
     }
     //Permet de switcher de mode
     public function toggleMode(Request $request)
@@ -162,7 +162,7 @@ class SuperAdminController extends Controller
             $admin->role=1;
         }
         $admin->save();
-        return redirect()->route('supadmin.org')->withErrors();
+        return redirect()->route('supadmin.org');
     }
 
     public function addCategorie(Request $request)
@@ -170,7 +170,7 @@ class SuperAdminController extends Controller
         $categorie=new Categorie();
         $categorie->categorie=$request->input('categorie');
         $categorie->save();
-        return redirect()->route('supadmin.categorie')->withErrors();
+        return redirect()->route('supadmin.categorie');
     }
 
     public function updateCategorie(Request $request)
@@ -178,7 +178,7 @@ class SuperAdminController extends Controller
         $categorie=Categorie();
         $categorie->categorie=$request->input('categorie');
         $categorie->save();
-        return redirect()->route('supadmin.categorie')->withErrors();
+        return redirect()->route('supadmin.categorie');
     }
 
     public function delCategorie(Request $request)
@@ -192,7 +192,7 @@ class SuperAdminController extends Controller
         $lieu->town=$request->input('town');
         $lieu->district=$request->input('district');
         $lieu->save();
-        return redirect()->route('supadmin.lieu')->withErrors();
+        return redirect()->route('supadmin.lieu');
     }
 
     public function updateLieu(Request $request)
@@ -202,7 +202,7 @@ class SuperAdminController extends Controller
         $lieu->town=$request->input('town');
         $lieu->district=$request->input('district');
         $lieu->save();
-        return redirect()->route('supadmin.lieu')->withErrors();
+        return redirect()->route('supadmin.lieu');
     }
     public function addType(Request $request)
     {
@@ -210,7 +210,7 @@ class SuperAdminController extends Controller
         $type->type=$request->input('type');
         $type->categorie_id=$request->input('categorie_id');
         $type->save();
-        return redirect()->route('supadmin.type')->withErrors();
+        return redirect()->route('supadmin.type');
     }
 
     public function updateType(Request $request)
@@ -219,13 +219,13 @@ class SuperAdminController extends Controller
         $type->type=$request->input('type');
         $type->categorie_id=$request->input('categorie_id');
         $type->save();
-        return redirect()->route('supadmin.type')->withErrors();
+        return redirect()->route('supadmin.type');
     }
 
     public function delOrganisateur($id=null)
     {
         $organisateur=Admin::find($id);
         $organisateur->delete();
-        return redirect()->route('supadmin.org')->withErrors();
+        return redirect()->route('supadmin.org');
     }
 }

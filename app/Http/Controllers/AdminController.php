@@ -171,11 +171,4 @@ class AdminController extends Controller
         return view('admin.Goprime.checkout');
     }
 
-    public function getSousCategorie(Request $request)
-    {
-        $categorie=Categorie::find($request->input('id'));
-        $categorie->load('types');
-        $types=$categorie->types;
-        return $types->tojson();
-    }
 }

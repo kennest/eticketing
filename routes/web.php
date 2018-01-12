@@ -33,7 +33,6 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/', 'AdminController@index')->name('admin.index');
     Route::get('/goPrime', 'AdminController@goPrime')->name('admin.goprime');
-    Route::get('/sousCat', 'AdminController@getSousCategorie')->name('admin.souscat');
 });
 
 Route::prefix('superadmin')->group(function () {
