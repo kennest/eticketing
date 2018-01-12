@@ -12,7 +12,8 @@
 	<title>{{ config('app.name', 'Laravel') }} | Tableau de Bord</title>
 
 	<!-- Styles -->
-	<link href="{{ asset('css/app.css') }}" rel="stylesheet"> {!! Charts::styles() !!}
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+	{!! Charts::styles() !!}
 	<style>
 		.logo {
 			background-image: url("../imgs/logo.png");
@@ -25,7 +26,7 @@
 		<!--Navbar-->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 			<a class="navbar-brand" href="#">
-				<img alt="Brand" src="{{asset('imgs/logo.png')}}">
+				<img alt="Brand" src="{{asset('img/logo.png')}}">
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
 			 aria-expanded="false" aria-label="Toggle navigation">
@@ -41,24 +42,30 @@
 					<li class="nav-item {{{ (Request::is('superadmin/organisateurs') ? 'active' : '') }}}">
 						<a class="nav-link" href="{{route('supadmin.org')}}">Organisateur</a>
 					</li>
-					<li class="nav-item {{{ (Request::is('superadmin/parametres') ? 'active' : '') }}}">
-						<a class="nav-link" href="{{route('supadmin.params')}}">Parametres</a>
+					<li class="nav-item {{{ (Request::is('superadmin/lieu') ? 'active' : '') }}}">
+						<a class="nav-link" href="{{route('supadmin.lieu')}}">Lieu</a>
+					</li>
+					<li class="nav-item {{{ (Request::is('superadmin/categorie') ? 'active' : '') }}}">
+						<a class="nav-link" href="{{route('supadmin.categorie')}}">Categories</a>
+					</li>
+					<li class="nav-item {{{ (Request::is('superadmin/type') ? 'active' : '') }}}">
+						<a class="nav-link" href="{{route('supadmin.type')}}">Sous-categories</a>
+					</li>
+					<li class="nav-item {{{ (Request::is('superadmin/banner') ? 'active' : '') }}}">
+						<a class="nav-link" href="{{route('supadmin.banner')}}">Bannieres</a>
+					</li>
+					<li class="nav-item {{{ (Request::is('superadmin/alaune') ? 'active' : '') }}}">
+						<a class="nav-link" href="{{route('supadmin.type')}}">A la une</a>
 					</li>
 				</ul>
 				<ul class="navbar-nav">
 					<li class="nav-item dropdown">
 						<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
-						 aria-expanded="true">
+						 aria-expanded="true">IPWAV
 						</button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
 							<li class="dropdown-item">
-								<a class="" href="#">Profil</a>
-							</li>
-							<li class="dropdown-item">
-								<a class="" href="#">Stats</a>
-							</li>
-							<li class="dropdown-item">
-								<a class="" href="{{route('admin.logout')}}">Se Deconnecter</a>
+								<a class="" href="{{route('supadmin.logout')}}">Se Deconnecter</a>
 							</li>
 						</ul>
 					</li>
@@ -70,12 +77,13 @@
 			</div>
 		</nav>
 		<!--/.Navbar-->
-		<div class="container">
+		<div class="container-fluid">
 			@yield('content')
     </div>
 	<!-- Scripts -->
-	<script src="{{ asset('js/app.js') }}"></script>
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	@yield('scripts')
 </body>

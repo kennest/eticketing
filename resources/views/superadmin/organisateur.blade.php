@@ -1,4 +1,5 @@
-@extends('layouts.super-admin') @section('content')
+@extends('layouts.super-admin')
+ @section('content')
 <h1>Organisateur</h1>
 <table id="organisateurs" class="table table-bordered display" cellspacing="0" width="100%">
 	<thead>
@@ -22,13 +23,7 @@
 					<label class="btn btn-success active">
 						<input type="radio" name="options" id="prime" data="{{$o->id}}" autocomplete="off" checked> Prime
 					</label>
-					<label class="btn btn-success">
-						<input type="radio" name="options" id="simple" data="{{$o->id}}" autocomplete="off"> Simple
-					</label>
 					@else
-					<label class="btn btn-success">
-						<input type="radio" name="options" id="prime" data="{{$o->id}}" autocomplete="off" checked> Prime
-					</label>
 					<label class="btn btn-success active">
 						<input type="radio" name="options" id="simple" data="{{$o->id}}" autocomplete="off"> Simple
 					</label>
@@ -37,12 +32,14 @@
 				</div>
 			</td>
 			<td>
-			<a href="" class="btn btn-danger">
+			<a href="#" class="btn btn-danger">
        supprimer
-      </a>
+			</a>
+			@if($o->role==0)
       <a href="{{route('supadmin.toggle',['id'=>$o->id])}}" class="btn btn-info">
           Changer de mode
-        </a>
+				</a>
+				@endif
 			</td>
 		</tr>
 		@endforeach

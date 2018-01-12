@@ -25,7 +25,7 @@ Route::prefix('admin')->group(function () {
     //Events Form actions
     Route::get('form/event/{uuid?}', 'AdminController@formEvent')->name('admin.form.event');
     Route::post('event/save', 'AdminController@save')->name('admin.save.event');
-    Route::post('update', 'AdminController@update')->name('admin.update.event');
+    Route::post('event/update', 'AdminController@update')->name('admin.update.event');
 
     //Events List
     Route::get('list/event/', 'AdminController@listEvent')->name('admin.list.event');
@@ -38,7 +38,30 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('superadmin')->group(function () {
     Route::get('/', 'SuperAdminController@index')->name('supadmin.index');
+    Route::get('/login', 'SuperAdminController@login')->name('supadmin.login');
+    Route::get('/logout', 'SuperAdminController@logout')->name('supadmin.logout');
+    Route::post('/doLogin', 'SuperAdminController@doLogin')->name('supadmin.dologin');
     Route::get('/organisateurs', 'SuperAdminController@organisateur')->name('supadmin.org');
-    Route::get('/parametres', 'SuperAdminController@parametres')->name('supadmin.params');
+
+    Route::get('/lieu/{id?}', 'SuperAdminController@lieu')->name('supadmin.lieu');
+    Route::get('/categorie/{id?}', 'SuperAdminController@categorie')->name('supadmin.categorie');
+    Route::get('/type/{id?}', 'SuperAdminController@type')->name('supadmin.type');
+
+    Route::get('/banner/{id?}', 'SuperAdminController@banner')->name('supadmin.banner');
+    Route::post('/banner/add', 'SuperAdminController@addbanner')->name('supadmin.addbanner');
+    Route::post('/banner/update', 'SuperAdminController@updatebanner')->name('supadmin.updatebanner');
+    
+    Route::get('/top/', 'SuperAdminController@top')->name('supadmin.top');
+    
     Route::get('/toggle', 'SuperAdminController@toggleMode')->name('supadmin.toggle');
+    Route::get('/delOrg/{id}', 'SuperAdminController@delOrganisateur')->name('supadmin.delorg');
+
+    Route::post('/add/lieu', 'SuperAdminController@addLieu')->name('supadmin.addlieu');
+    Route::post('/update/lieu', 'SuperAdminController@updateLieu')->name('supadmin.updatelieu');
+
+    Route::post('/add/categorie', 'SuperAdminController@addCategorie')->name('supadmin.addcat');
+    Route::post('/update/categorie', 'SuperAdminController@updateCategorie')->name('supadmin.updatecat');
+
+    Route::post('/add/type', 'SuperAdminController@addType')->name('supadmin.addtype');
+    Route::post('/update/type', 'SuperAdminController@updateType')->name('supadmin.updatetype');
 });

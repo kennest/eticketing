@@ -20,6 +20,7 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
-        "jshint": "^2.9.5"
+        "jshint": "^2.9.5",
+        "vscode-css-languageservice": "^3.0.3"
     }
 }
