@@ -20,6 +20,7 @@ use App\Models\TypeOrganisateur;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Categorie;
+use App\Models\Participant;
 
 class AdminController extends Controller
 {
@@ -84,7 +85,8 @@ class AdminController extends Controller
         }
         $types = TypeEvenement::all();
         $lieux = Lieu::all();
-        return view('admin.Forms.ajouterEvenement', compact('event', 'lieux', 'types'));
+        $participants=Auth('admin')->user()->participants()->get();
+        return view('admin.Forms.ajouterEvenement', compact('event', 'lieux', 'types', 'participants'));
     }
 
     //Save
@@ -134,7 +136,8 @@ class AdminController extends Controller
             $event->classeTickets()->save($public);
         }
         $event->save();
-        $this->listEvent();
+        $event->participants()->sync($request->input('participants'));
+        return redirect()->back();
     }
 
     //Update
@@ -146,6 +149,7 @@ class AdminController extends Controller
     public function delete($uuid = null)
     {
         $event = Evenement::where('uuid', $uuid);
+        dd($event);
     }
 
     //Go Prime
@@ -171,4 +175,39 @@ class AdminController extends Controller
         return view('admin.Goprime.checkout');
     }
 
+    //Formulaire de participant
+    public function participants($id=null)
+    {
+        $participant=Participant::find($id);
+        
+        $participants=Auth('admin')->user()->participants()->get();
+        return view('admin.participants', compact('participant', 'participants'));
+    }
+
+    //Ajout de participant
+    public function addparticipant(Request $request)
+    {
+        $this->validate($request, [
+            'name'=>'required',
+        ]);
+        $participant=new Participant();
+        $participant->name=$request->input('name');
+        $participant->profession=$request->input('profession');
+        $participant->admin_id=Auth('admin')->id();
+        $participant->save();
+        return redirect()->back();
+    }
+
+    public function updateparticipant(Request $request)
+    {
+        $this->validate($request, [
+            'name'=>'required',
+        ]);
+        $participant=Participant::find($request->input('id'));
+        $participant->name=$request->input('name');
+        $participant->profession=$request->input('profession');
+        $participant->admin_id=Auth('admin')->id();
+        $participant->save();
+        return redirect()->back();
+    }
 }

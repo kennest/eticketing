@@ -1,6 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
+<div class="col-12">
+		@include('errors.validation')
+	</div>
     <div style="position: relative; left: 43%; color: white;" class="logo">
     </div>
     <div class="container" style="margin-top: 150px;">

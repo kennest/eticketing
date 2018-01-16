@@ -27,6 +27,10 @@ Route::prefix('admin')->group(function () {
     Route::post('event/save', 'AdminController@save')->name('admin.save.event');
     Route::post('event/update', 'AdminController@update')->name('admin.update.event');
 
+    Route::get('/participants/{id?}', 'AdminController@participants')->name('admin.participants');
+    Route::post('participant/save', 'AdminController@addparticipant')->name('admin.add.participant');
+    Route::post('participan/update', 'AdminController@updateparticipant')->name('admin.update.participant');
+
     //Events List
     Route::get('list/event/', 'AdminController@listEvent')->name('admin.list.event');
     Route::get('event/delete/{uuid}', 'AdminController@delete');
@@ -41,7 +45,7 @@ Route::prefix('superadmin')->group(function () {
     Route::get('/logout', 'SuperAdminController@logout')->name('supadmin.logout');
     Route::post('/doLogin', 'SuperAdminController@doLogin')->name('supadmin.dologin');
     Route::get('/organisateurs', 'SuperAdminController@organisateur')->name('supadmin.org');
-
+    
     Route::get('/lieu/{id?}', 'SuperAdminController@lieu')->name('supadmin.lieu');
     Route::get('/categorie/{id?}', 'SuperAdminController@categorie')->name('supadmin.categorie');
     Route::get('/type/{id?}', 'SuperAdminController@type')->name('supadmin.type');

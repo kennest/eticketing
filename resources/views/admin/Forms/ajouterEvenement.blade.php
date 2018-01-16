@@ -1,5 +1,9 @@
-@extends('layouts.admin') @section('content')
+@extends('layouts.admin') 
+@section('content')
 <p>&nbsp;</p>
+<div class="col-12">
+	@include('errors.validation')
+</div>
 <div class="card card-default">
 	<div class="card-header">
 		<h3 class="card-title">
@@ -24,7 +28,6 @@
 						@endforeach
 					</select>
 				</div>
-
 				<div class="col-4 form-group">
 					<label for="orangeForm-pass">Lieu *:</label>
 					<select name="lieu" class="form-control">
@@ -34,16 +37,24 @@
 					</select>
 				</div>
 			</div>
-
-
-			<div class="col-6 form-group">
-				<p>
-					<img class="thumbnail" src="{{Storage::url($event->picture)}}">
-				</p>
-				<label for="">Affiche *:</label>
-				<input type="file" name="picture" class="form-control">
+			<div class="row">
+				<div class="col-6 form-group">
+					<p>
+						<img class="thumbnail" src="{{Storage::url($event->picture)}}">
+					</p>
+					<label for="">Affiche *:</label>
+					<input type="file" name="picture" class="form-control">
+				</div>
+				<div class="col-6 form-group">
+					<label for="orangeForm-pass">Participants*:</label>
+					<select id="part" name="participants[]" class="form-control" multiple="true">
+					<option disabled selected>Choisir les participants</option>
+					@foreach($participants as $p)
+					<option value="{{$p->id}}">{{$p->name}}</option>
+					@endforeach
+				</select>
+				</div>
 			</div>
-
 			<div class="form-group">
 				<label for="">Description</label>
 				<textarea name="description" rows="3" class="form-control" placeholder="Ajouter une Description...">{{$event->description}}</textarea>
@@ -100,8 +111,6 @@
 				</div>
 			</div>
 
-
-
 			<div class="text-center">
 				<input type="submit" class="btn btn-success" value="PUBLIER">
 			</div>
@@ -123,11 +132,9 @@
 						@endforeach
 					</select>
 				</div>
-
 				<div class="col-4 form-group">
 					<label for="orangeForm-pass">Lieu *:</label>
 					<select name="lieu" class="form-control">
-
 						<option disabled selected>Choisir le Lieu</option>
 						@foreach($lieux as $lieu)
 						<option value="{{$lieu->id}}">{{$lieu->label}}</option>
@@ -135,18 +142,26 @@
 					</select>
 				</div>
 			</div>
-
-			<div class="col-6 form-group">
-				<label for="orangeForm-email">Affiche *:</label>
-				<input type="file" name="picture" class="form-control">
+			<div class="row">
+				<div class="col-6 form-group">
+					<label for="orangeForm-email">Affiche *:</label>
+					<input type="file" name="picture" class="form-control">
+				</div>
+				<div class="col-6 form-group">
+					<label for="orangeForm-pass">Participants*:</label>
+					<select id="part" name="participants[]" class="form-control" multiple="true">
+					<option disabled selected>Choisir les participants</option>
+					@foreach($participants as $p)
+					<option value="{{$p->id}}">{{$p->name}}</option>
+					@endforeach
+				</select>
+				</div>
 			</div>
-
 			<div class="form-group">
 				<label for="orangeForm-email">Description</label>
 				<textarea name="description" rows="3" class="form-control" placeholder="Ajouter une Description..."></textarea>
 			</div>
-			<hr/> 
-			@if(Auth::user()->role==1)
+			<hr/> @if(Auth::user()->role==1)
 			<div class="row">
 				<div class="col-6 form-group">
 					<label for="orangeForm-pass">Nombre de Tickets</label>
@@ -191,7 +206,6 @@
 					<label for="orangeForm-pass">Date de debut *:</label>
 					<input type="date" name="begin" class="form-control">
 				</div>
-
 				<div class=" col-6 form-group">
 					<label for="orangeForm-pass">Date de Fin *:</label>
 					<input type="date" name="end" class="form-control">
@@ -205,10 +219,11 @@
 	</div>
 </div>
 <!-- Form register -->
-
-@endsection @section('scripts')
+@endsection
+ 
+@section('scripts')
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script>
-
 </script>
-@endsection()
+@endsection
+()

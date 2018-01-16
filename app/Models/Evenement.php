@@ -36,4 +36,9 @@ class Evenement extends Model
     {
         return $this->belongsTo(Lieu::class);
     }
+
+    public function participants()
+    {
+        return $this->belongsToMany(Participant::class);
+    }
 }

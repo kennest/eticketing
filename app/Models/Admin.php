@@ -35,7 +35,13 @@ class Admin extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function evenements(){
+    public function evenements()
+    {
         return $this->hasMany(Evenement::class);
+    }
+
+    public function participants()
+    {
+        return $this->hasMany(Participant::class);
     }
 }

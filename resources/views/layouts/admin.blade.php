@@ -46,6 +46,9 @@
 					<li class="nav-item {{{ (Request::is('admin/list/event') ? 'active' : '') }}}">
 						<a class="nav-link" href="{{route('admin.list.event')}}">Liste des evenements publiés</a>
 					</li>
+					<li class="nav-item {{{ (Request::is('admin/participants') ? 'active' : '') }}}">
+						<a class="nav-link" href="{{route('admin.participants')}}">Participants</a>
+					</li>
 				</ul>
 				<ul class="navbar-nav">
 					<li class="nav-item dropdown">
