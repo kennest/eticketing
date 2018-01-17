@@ -40,12 +40,13 @@
 			<div class="row">
 				<div class="col-6 form-group">
 					<p>
-						<img class="thumbnail" src="{{Storage::url($event->picture)}}">
+						<img class="thumbnail" height="150" width="150" src="{{Storage::url($event->picture)}}">
 					</p>
 					<label for="">Affiche *:</label>
 					<input type="file" name="picture" class="form-control">
 				</div>
 				<div class="col-6 form-group">
+					@if($participants)
 					<label for="orangeForm-pass">Participants*:</label>
 					<select id="part" name="participants[]" class="form-control" multiple="true">
 					<option disabled selected>Choisir les participants</option>
@@ -53,6 +54,9 @@
 					<option value="{{$p->id}}">{{$p->name}}</option>
 					@endforeach
 				</select>
+				@else
+				<a class="btn btn-info" href="{{route('admin.participants')}}">Ajouter un participants</a>
+				@endif
 				</div>
 			</div>
 			<div class="form-group">
@@ -112,7 +116,7 @@
 			</div>
 
 			<div class="text-center">
-				<input type="submit" class="btn btn-success" value="PUBLIER">
+				<input type="submit" class="btn btn-success btn-block" value="PUBLIER">
 			</div>
 		</form>
 		@else
@@ -147,7 +151,9 @@
 					<label for="orangeForm-email">Affiche *:</label>
 					<input type="file" name="picture" class="form-control">
 				</div>
+				
 				<div class="col-6 form-group">
+				@if($participants)
 					<label for="orangeForm-pass">Participants*:</label>
 					<select id="part" name="participants[]" class="form-control" multiple="true">
 					<option disabled selected>Choisir les participants</option>
@@ -155,6 +161,9 @@
 					<option value="{{$p->id}}">{{$p->name}}</option>
 					@endforeach
 				</select>
+				@else
+				<a class="btn btn-info" href="{{route('admin.participants')}}">Ajouter un participants</a>
+				@endif
 				</div>
 			</div>
 			<div class="form-group">
@@ -212,7 +221,7 @@
 				</div>
 			</div>
 			<div class="text-center">
-				<input type="submit" class="btn btn-success" value="PUBLIER">
+				<input type="submit" class="btn btn-success btn-block" value="PUBLIER">
 			</div>
 		</form>
 		@endif
@@ -226,4 +235,3 @@
 <script>
 </script>
 @endsection
-()

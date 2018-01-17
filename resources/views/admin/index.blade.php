@@ -1,4 +1,5 @@
-@extends('layouts.admin') @section('content')
+@extends('layouts.admin') 
+@section('content')
 <p>&nbsp;</p>
 @if(Auth::user()->role==0)
 <div class="alert alert-warning alert-dismissible" role="alert">
@@ -42,5 +43,8 @@
 	</div>
 </div>
 <!--/.Carousel Wrapper-->
-{!! Charts::scripts() !!} {!! $eventsByTypeChart->script() !!} {!! $eventsByLieuChart->script() !!} {!! $eventsByDateChart->script()
-!!} @endsection
+{!! Charts::scripts() !!} 
+{!! $eventsByTypeChart->script() !!} 
+{!! $eventsByLieuChart->script() !!} 
+{!! $eventsByDateChart->script()!!} 
+@endsection

@@ -11,6 +11,7 @@ use Psy\Util\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Banniere;
+use App\Models\Evenement;
 
 class SuperAdminController extends Controller
 {
@@ -96,6 +97,14 @@ class SuperAdminController extends Controller
         return view('superadmin.organisateur', compact('organisateurs'));
     }
 
+    public function evenements()
+    {
+        $events=Evenement::all();
+        $events->load('type', 'participants', 'lieu');
+        
+        return view('superadmin.evenements', compact('events'));
+    }
+
     public function lieu($id=null)
     {
         $lieu=Lieu::find($id);
@@ -163,6 +172,18 @@ class SuperAdminController extends Controller
         }
         $admin->save();
         return redirect()->route('supadmin.org');
+    }
+
+    public function toggleState($id=null)
+    {
+        $event=Evenement::find($id);
+        if ($event->statut==0) {
+            $event->statut=1;
+        } else {
+            $event->statut=0;
+        }
+        $event->save();
+        return redirect()->route('supadmin.events');
     }
 
     public function addCategorie(Request $request)

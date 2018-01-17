@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
-
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
 	<!-- CSRF Token -->
 	<meta name="csrf-token" content="{{ csrf_token() }}">
-
 	<title>{{ config('app.name', 'Laravel') }} | Tableau de Bord</title>
-
 	<!-- Styles -->
 	<link href="{{ asset('css/app.css') }}" rel="stylesheet"> {!! Charts::styles() !!}
 	<style>
@@ -20,7 +16,6 @@
 		}
 	</style>
 </head>
-
 <body id="adminlogin">
 	<div id="app">
 		<!--Navbar-->
@@ -78,7 +73,6 @@
 		@else {{--
 		<a href="{{ route('admin.login') }}">Login</a>--}} {{--
 		<a href="{{ route('register') }}">Register</a>--}} @endauth
-
 		<!--/.Navbar-->
 		<div class="container">
 			@yield('content')
@@ -88,5 +82,4 @@
 	<script src="{{ asset('js/app.js') }}"></script>
 	@yield('scripts')
 </body>
-
 </html>

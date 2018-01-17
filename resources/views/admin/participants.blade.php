@@ -1,5 +1,4 @@
 @extends('layouts.admin')
-
 @section('content')
   <div class="row">
     <div class="col-12">
@@ -12,4 +11,4 @@
       @include('admin.Lists.participant')
     </div>
   </div>
-@endsection()
+@endsection

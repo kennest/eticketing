@@ -42,6 +42,9 @@
 					<li class="nav-item {{{ (Request::is('superadmin/organisateurs') ? 'active' : '') }}}">
 						<a class="nav-link" href="{{route('supadmin.org')}}">Organisateur</a>
 					</li>
+					<li class="nav-item {{{ (Request::is('superadmin/evenements') ? 'active' : '') }}}">
+						<a class="nav-link" href="{{route('supadmin.events')}}">Evenements</a>
+					</li>
 					<li class="nav-item {{{ (Request::is('superadmin/lieu') ? 'active' : '') }}}">
 						<a class="nav-link" href="{{route('supadmin.lieu')}}">Lieu</a>
 					</li>

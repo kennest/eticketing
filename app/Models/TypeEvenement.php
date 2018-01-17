@@ -19,4 +19,14 @@ class TypeEvenement extends Model
     {
         return $this->belongsTo(Categorie::class);
     }
+
+    public function events()
+    {
+        return $this->hasMany(Evenement::class, 'type_id');
+    }
+    
+    public function activeEvents()
+    {
+        return $this->events()->active();
+    }
 }

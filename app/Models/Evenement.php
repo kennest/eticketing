@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Evenement extends Model
 {
+    protected $table='evenements';
+
     public function admin()
     {
         return $this->belongsTo(Admin::class);
@@ -40,5 +42,16 @@ class Evenement extends Model
     public function participants()
     {
         return $this->belongsToMany(Participant::class);
+    }
+
+    //Scopes
+    public function scopeActive($query)
+    {
+        return $query->where('statut', '=', 1);
+    }
+
+    public function scopeInactive($query)
+    {
+        return $query->where('statut', '=', 0);
     }
 }

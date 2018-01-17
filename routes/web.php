@@ -10,9 +10,10 @@
 |
  */
 Auth::routes();
-
-Route::get('/', 'ClientController@index')->name('home');
-
+Route::prefix('')->group(function () {
+    Route::get('/', 'ClientController@index')->name('index');
+    Route::get('/details/uniqid/{uuid}', 'ClientController@details')->name('details');
+});
 Route::prefix('admin')->group(function () {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::get('/register', 'Auth\AdminLoginController@showRegisterForm')->name('admin.register');
@@ -41,10 +42,13 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('superadmin')->group(function () {
     Route::get('/', 'SuperAdminController@index')->name('supadmin.index');
+
     Route::get('/login', 'SuperAdminController@login')->name('supadmin.login');
     Route::get('/logout', 'SuperAdminController@logout')->name('supadmin.logout');
     Route::post('/doLogin', 'SuperAdminController@doLogin')->name('supadmin.dologin');
+
     Route::get('/organisateurs', 'SuperAdminController@organisateur')->name('supadmin.org');
+    Route::get('/evenements', 'SuperAdminController@evenements')->name('supadmin.events');
     
     Route::get('/lieu/{id?}', 'SuperAdminController@lieu')->name('supadmin.lieu');
     Route::get('/categorie/{id?}', 'SuperAdminController@categorie')->name('supadmin.categorie');
@@ -56,7 +60,8 @@ Route::prefix('superadmin')->group(function () {
     
     Route::get('/top/', 'SuperAdminController@top')->name('supadmin.top');
     
-    Route::get('/toggle', 'SuperAdminController@toggleMode')->name('supadmin.toggle');
+    Route::get('/toggleMode', 'SuperAdminController@toggleMode')->name('supadmin.toggle');
+    Route::get('/togglestate/{id}', 'SuperAdminController@toggleState')->name('supadmin.togglestate');
     Route::get('/delOrg/{id}', 'SuperAdminController@delOrganisateur')->name('supadmin.delorg');
 
     Route::post('/add/lieu', 'SuperAdminController@addLieu')->name('supadmin.addlieu');
