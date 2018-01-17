@@ -10,10 +10,9 @@
       <div class="row">
         <div class="col-md-12">
           <div class="controls text-center wow fadeInUp" data-wow-delay=".6s">
-            <a class="control mixitup-control-active btn btn-common" data-filter="all">Tous</a> @foreach($types as $t)
+            <a class="control mixitup-control-active btn btn-common" data-filter="all">Tous</a> 
+            @foreach($types as $t)
             <a class="control btn btn-common" data-filter=".{{$t->type}}">{{$t->type}}</a>
-            <!--a class="control btn btn-common" data-filter=".planning">Development</a>
-            <a class="control btn btn-common" data-filter=".research">Print</a-->
             @endforeach
           </div>
           <div id="portfolio" class="row wow fadeInUp" data-wow-delay="0.8s">
@@ -29,10 +28,11 @@
                     <div class="sup-desc-inner">
                       <div class="sup-meta-wrap">
                         <a class="sup-title" href="{{route('details',['uuid'=>$e->uuid])}}">
-                          <h4></h4>{{$e->title}}</h4>
+                          <h4>{{$e->title}}</h4>
                         </a>
                         <p class="sup-description"><em>{{$e->lieu->label}}</em></p>
                         <p class="sup-description">{{$e->description}}</p>
+                        <a href="#" class="sup-title btn btn-primary">Payer</a>
                       </div>
                     </div>
                   </div>
@@ -136,14 +136,19 @@
             <div class="team-content">
               <h4 class="tem-member">{{$e->title}}</h4>
               <h6><b>{{$e->lieu->label}}</b></h6>
-              <ul class="list-unstyled">
+              <ul class="alert alert-info">
                     <li class="">
                             {{Jenssegers\Date\Date::parse($e->begin)->format('l j F Y')}}
                     </li>
+                    <li><b>Au</b></li>
                     <li class="">
                             {{Jenssegers\Date\Date::parse($e->end)->format('l j F Y')}}
                     </li>
+                    <li>
+                      <a class="alert-link" href="{{route('details',['uuid'=>$e->uuid])}}">En savoir plus...</a>
+                    </li>
                   </ul>
+                  <p>&nbsp;</p>
               <button type="button" class="btn btn-warning">
                     Tickets <span class="badge badge-light">{{$e->tickets}}</span>
               </button>
@@ -159,7 +164,7 @@
                 </li>
               </ul-->
               <p>&nbsp;</p>
-              <a href="#" class="btn btn-info btn-block">Acheter</a>
+              <a href="#" class="btn btn-info btn-block">j'achète</a>
             </div>
           </div>
         </div>
@@ -182,4 +187,11 @@
       </div>
     </div>
   </section>
+@endsection
+@section('scripts')
+<script>
+        $(document).ready(function(){
+            $(".owl-carousel").owlCarousel();
+          });
+</script>
 @endsection

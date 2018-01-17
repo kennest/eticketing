@@ -12,7 +12,7 @@
 Auth::routes();
 Route::prefix('')->group(function () {
     Route::get('/', 'ClientController@index')->name('index');
-    Route::get('/details/uniqid/{uuid}', 'ClientController@details')->name('details');
+    Route::get('/voir_details/{uuid}', 'ClientController@details')->name('details');
 });
 Route::prefix('admin')->group(function () {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');

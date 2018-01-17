@@ -8,21 +8,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="author" content="Grayrids">
   <title>Eticketing | {{Request::path()}}</title>
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/simple-line-icons.css">
-  <link rel="stylesheet" href="css/owl.carousel.css">
-  <link rel="stylesheet" href="css/owl.theme.css">
-  <link rel="stylesheet" href="css/animate.css">
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
+  <link rel="stylesheet" href="{{asset('css/simple-line-icons.css')}}">
+  <link rel="stylesheet" href="{{asset('css/owl.carousel.css')}}">
+  <link rel="stylesheet" href="{{asset('css/owl.theme.css')}}">
+  <link rel="stylesheet" href="{{asset('css/animate.css')}}">
+  <link rel="stylesheet" href="{{asset('css/main.css')}}">
+  <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
 </head>
 <body>
   <header id="hero-area">
     <div class="overlay"></div>
     <nav class="navbar navbar-toggleable-sm fixed-top navbar-light bg-faded">
       <div class="container">
-        <a class="navbar-brand" href="index-2.html"><img src="img/logo.png" alt=""></a>
+        <a class="navbar-brand" href="index-2.html"><img src="{{asset('img/logo.png')}}" alt=""></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
           aria-expanded="false" aria-label="Toggle navigation">
 <i class="icon-menu"></i>
@@ -32,14 +32,17 @@
             <li class="nav-item">
               <a class="nav-link" href="#about">Tous les evènements</a>
             </li>
+            @foreach($categories as $c)
             <li class="nav-item">
-              <a class="nav-link" href="#services">Services</a>
+              <a class="nav-link" href="#">{{$c->categorie}}</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#portfolio">Portfolio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#why">Why</a>
+           @endforeach
+           <li class="nav-item">
+              <a class="nav-link" href="#contact">
+                <h6>
+                    <span class="badge badge-info">Espace organisateur</span>
+                </h6>
+              </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#contact">Contact</a>
@@ -57,7 +60,7 @@
                 <h1 class="wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">Basic - Bootstrap 4 Template</h1>
                 <p class="lead  wow fadeIn" data-wow-duration="1000ms" data-wow-delay="400ms">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys
                   standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it.</p>
-                <a href="#" class="btn btn-common wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="400ms">Read More</a>
+                <a href="#" class="btn btn-warning wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="400ms">Read More</a>
                 <a href="#" class="btn btn-border wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="400ms">Purchase</a>
                 <div class="banner_bottom_btn wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="700ms">
                   <a href="#about" class="js-target-scroll"><i class="icon-mouse"></i></a>
@@ -208,9 +211,8 @@
       </div>
     </div>
   </section-->
-  <div class="container-fluid">
+
     @yield('content')
-  </div>
   <!--div id="pricing" class="section pricing-section">
     <div class="container">
       <div class="section-header">
@@ -475,20 +477,32 @@
     </div>
   </div>
   <script data-cfasync="false" src="http://demo.graygrids.com/cdn-cgi/scripts/af2821b0/cloudflare-static/email-decode.min.js"></script>
-  <script src="js/jquery-min.js"></script>
-  <script src="js/tether.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/mixitup.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.nav.js"></script>
-  <script src="js/smooth-scroll.js"></script>
-  <script src="js/smooth-on-scroll.js"></script>
-  <script src="js/wow.js"></script>
-  <script src="js/jquery.counterup.min.js"></script>
-  <script src="js/waypoints.min.js"></script>
-  <script src="js/form-validator.min.js"></script>
-  <script src="js/contact-form-script.js"></script>
-  <script src="js/main.js"></script>
+  <script src="{{asset('js/jquery-min.js')}}"></script>
+  <script src="{{asset('js/tether.min.js')}}"></script>
+  <script src="{{asset('js/bootstrap.min.js')}}"></script>
+  <script src="{{asset('js/mixitup.min.js')}}"></script>
+  <script src="{{asset('js/owl.carousel.min.js')}}"></script>
+  <script src="{{asset('js/jquery.nav.js')}}"></script>
+  <script src="{{asset('js/smooth-scroll.js')}}"></script>
+  <script src="{{asset('js/smooth-on-scroll.js')}}"></script>
+  <script src="{{asset('js/wow.js')}}"></script>
+  <script src="{{asset('js/jquery.counterup.min.js')}}"></script>
+  <script src="{{asset('js/waypoints.min.js')}}"></script>
+  <script src="{{asset('js/form-validator.min.js')}}"></script>
+  <script src="{{asset('js/contact-form-script.js')}}"></script>
+  <script src="{{asset('js/main.js')}}"></script>
+
+  <!--Facebook Comments SDK-->
+  <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.11&appId=279563225902445';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
 </body>
 <!-- Mirrored from demo.graygrids.com/themes/basic/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 12 Jan 2018 14:28:33 GMT -->
 </html>
