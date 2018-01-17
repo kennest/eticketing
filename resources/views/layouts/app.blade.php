@@ -30,7 +30,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="#about">Tous les evènements</a>
+              <a class="nav-link" href="{{route('visitortracker.summary')}}">Tous les evènements</a>
             </li>
             @foreach($categories as $c)
             <li class="nav-item">

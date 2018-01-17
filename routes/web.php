@@ -13,6 +13,7 @@ Auth::routes();
 Route::prefix('')->group(function () {
     Route::get('/', 'ClientController@index')->name('index');
     Route::get('/voir_details/{uuid}', 'ClientController@details')->name('details');
+    VisitStats::routes();
 });
 Route::prefix('admin')->group(function () {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');

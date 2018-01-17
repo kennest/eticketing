@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 <p>&nbsp;</p>
-                <a href="{{route('home')}}" class="btn btn-block btn-primary">Retour</a>
+                <a href="{{route('index')}}" class="btn btn-block btn-primary">Retour</a>
             </div>
         </div>
     </div>

@@ -166,6 +166,7 @@ return [
         Jenssegers\Date\DateServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Voerro\Laravel\VisitorTracker\VisitorTrackerServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -231,6 +232,7 @@ return [
         'Date' => Jenssegers\Date\Date::class,
         'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'VisitStats' => Voerro\Laravel\VisitorTracker\Facades\VisitStats::class,
 
     ],
 
