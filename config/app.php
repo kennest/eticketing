@@ -167,6 +167,7 @@ return [
         ConsoleTVs\Charts\ChartsServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Voerro\Laravel\VisitorTracker\VisitorTrackerServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -233,6 +234,7 @@ return [
         'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'VisitStats' => Voerro\Laravel\VisitorTracker\Facades\VisitStats::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],
 

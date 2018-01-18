@@ -38,7 +38,7 @@
             </li>
            @endforeach
            <li class="nav-item">
-              <a class="nav-link" href="#contact">
+              <a class="nav-link" href="{{route('admin.login')}}">
                 <h6>
                     <span class="badge badge-info">Espace organisateur</span>
                 </h6>
@@ -333,43 +333,6 @@
       </div>
     </div>
   </section-->
-  <div class="section contact-icon">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 col-sm-4">
-          <div class="box-icon wow fadeInUp" data-wow-duration="1200ms" data-wow-delay="300ms">
-            <div class="icon icon-primary">
-              <i class="icon-map"></i>
-            </div>
-            <p>
-              Avenue C, Block.04, DW, USA
-            </p>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-4">
-          <div class="box-icon wow fadeInUp" data-wow-duration="1200ms" data-wow-delay="500ms">
-            <div class="icon icon-secondary">
-              <i class="icon-envelope"></i>
-            </div>
-            <p>
-              <a href="http://demo.graygrids.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="432a2d252c033a2c363127222e222a2d2d222e266d202c2e">[email&#160;protected]</a>
-            </p>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-4">
-          <div class="box-icon wow fadeInUp" data-wow-duration="1200ms" data-wow-delay="700ms">
-            <div class="icon icon-tertiary">
-              <i class="icon-phone"></i>
-            </div>
-            <p>
-              (+699)1234-7575-45
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
   <footer>
     <section class="footer-Content">
       <div class="container wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
@@ -502,7 +465,7 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 </script>
-
+@yield('scripts')
 </body>
 <!-- Mirrored from demo.graygrids.com/themes/basic/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 12 Jan 2018 14:28:33 GMT -->
 </html>

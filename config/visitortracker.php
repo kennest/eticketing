@@ -89,7 +89,7 @@ return [
     */
 
     'login_attempt' => [
-        'url' => '/login',
+        'url' => 'admin/login',
         'method' => 'POST',
         'is_ajax' => false,
     ],

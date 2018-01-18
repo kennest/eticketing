@@ -38,4 +38,23 @@ class ClientController extends Controller
         }
         return view('client.pages.details', compact('events', 'types', 'categories', 'event'));
     }
+
+    public function paymentWizard($uuid=null)
+    {
+        $client=session('client');
+        $events=Evenement::all();
+
+        $types=TypeEvenement::all();
+        $categories=Categorie::all();
+        if ($event = Evenement::where('uuid', $uuid)->first()) {
+            $event->load('classeTickets', 'lieu', 'type');
+        } else {
+            $event = null;
+        }
+        return view('client.pages.payment', compact('events', 'types', 'categories', 'event', 'client'));
+    }
+
+    public function buy()
+    {
+    }
 }
