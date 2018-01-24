@@ -72,7 +72,7 @@
           <div class="tab-pane" id="choice" role="tabpanel" aria-labelledby="profile-tab">
             <div class="row text-center">
               <div class="col-12">
-                <h3>Panier</h3>
+                <h6>Panier</h6>
                 <table class="table table-primary" id="cart">
                   <thead class="thead-inverse">
                     <tr>
@@ -99,10 +99,8 @@
                       <td>{{$ct->quantity}}</td>
                     </tr>
                     @endforeach
-                    <tr>
-                      <th scope="row">Total</th>
-                      <td></td>
-                      <td></td>
+                    <tr></tr>
+                      <td colspan="3" scope="row">Total</td>
                       <td>
                         <input type="number" class="form-control" id="montant" value="0" disabled>
                       </td>
@@ -111,11 +109,16 @@
                 </table>
               </div>
               <div class="col-12">
-                <h3>Réception de tickets</h3>
-                <div class="form-group">
-                  <button class="btn btn-success">Ajouter un destinataire...</button>
-                  <p>&nbsp;</p>
-                </div>
+                <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">Choix des numeros de reception de tickets!</h4>
+                    <p></p>
+                    <hr>
+                    <div class="form-group">
+                        <button class="btn btn-success" id="btn-add-dest">Ajouter un numero destinataire...</button>
+                        <p>&nbsp;</p>
+                      </div>
+                    <p class="mb-0">Lancez vous!</p>
+                  </div>
               </div>
             </div>
           </div>
@@ -161,7 +164,6 @@
         dataType: 'json',
         data: { 'user': user_data ,'_token': '{{ csrf_token()}}'},
         success: function(resp) {
-          alert( resp );
           $('#myTab a[href="#choice"]').removeClass('disabled');
           $('#myTab li:eq(1) a').tab('show');
         },    
@@ -177,9 +179,9 @@
 //Auto-Calcul des valeurs du panier
 $( "#cart .form-control" ).change(function() {
   var id=$(this).attr('id');
-  var qte=$("#"+id).val();
+  var qte=Math.round($("#"+id).val());
   var price=$("#"+id+"_price").val();
-  var mt=$("#"+id+"_total").val(qte*price);
+  var mt=Math.round($("#"+id+"_total").val(qte*price));
   var tot=0;
   $("*[id*='_total']").each(function (i, el) {
     //It'll be an array of elements
@@ -230,5 +232,14 @@ $( "#cart .form-control" ).change(function() {
     e.preventDefault();
     FB.logout(user_data.authResponse);
   });
+</script>
+<script src="{{asset('js/jquery.mask.min.js')}}"></script>
+<script>
+    $(document).ready(function(){
+      $('#number').mask('00000000');
+      $('input:number').each(function(){
+        $(this).mask('0000000000000');
+      });
+    });
 </script>
 @endsection
