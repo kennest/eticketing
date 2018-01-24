@@ -51,7 +51,19 @@ class ClientController extends Controller
         } else {
             $event = null;
         }
+        //dd($event);
         return view('client.pages.payment', compact('events', 'types', 'categories', 'event', 'client'));
+    }
+
+    public function storeUserData(Request $request)
+    {
+        if ($request->ajax()) {
+            if (session(['user'=> $request->input('user')])) {
+                return response()->json('success');
+            } else {
+                return response()->json('error');
+            }
+        }
     }
 
     public function buy()

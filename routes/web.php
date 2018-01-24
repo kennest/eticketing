@@ -12,6 +12,7 @@
 Auth::routes();
 Route::prefix('')->group(function () {
     Route::get('/', 'ClientController@index')->name('index');
+    Route::post('/store', 'ClientController@storeUserData')->name('store');
     Route::get('/voir_details/{uuid}', 'ClientController@details')->name('details');
     Route::get('/payment/event/{uuid}', 'ClientController@paymentWizard')->name('payment');
     /*Route::get('login/facebook', 'SocialLoginController@redirectToProvider')->name('login.facebook');

@@ -13690,7 +13690,7 @@ module.exports = __webpack_require__(39);
  */
 
 __webpack_require__(13);
-/*window.Vue = require('vue');
+/*window.Vue = require('vue');*/
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -13774,6 +13774,15 @@ if (token) {
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
 // });
+
+Vue.use(VueFormWizard);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  methods: {
+    onComplete: function onComplete() {
+      alert('Yay. Done!');
+    }
+  }
+});
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1), __webpack_require__(1)))
 
 /***/ }),
