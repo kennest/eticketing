@@ -55,8 +55,7 @@
                   </div>
                 </div>
               </div>
-              <label>Telephone: <span class="label-danger">*</span></label>
-              <input type="text" id="number" name="number" placeholder="Votre Numero de  telephone..." class="form-control" autofocus>
+              <input type="text" id="number" name="number" placeholder="Numero de  telephone..." class="form-control col-3" autofocus>
               <a href="#" class="btn btn-info" id="fb-login">
                 <i class="fa fa-facebook"></i>  Continuer avec Facebook
               </a>
@@ -110,11 +109,11 @@
               </div>
               <div class="col-12">
                 <div class="alert alert-success" role="alert">
-                    <h4 class="alert-heading">Choix des numeros de reception de tickets!</h4>
+                    <h6 class="alert-heading">Quels sont les numeros qui doivents recevoir les tickets?</h6>
                     <p></p>
                     <hr>
                     <div class="form-group">
-                        <button class="btn btn-success" id="btn-add-dest">Ajouter un numero destinataire...</button>
+                        <button class="btn btn-success" id="btn-add-dest">Ajouter un numero ...</button>
                         <p>&nbsp;</p>
                       </div>
                     <p class="mb-0">Lancez vous!</p>
@@ -237,9 +236,6 @@ $( "#cart .form-control" ).change(function() {
 <script>
     $(document).ready(function(){
       $('#number').mask('00000000');
-      $('input:number').each(function(){
-        $(this).mask('0000000000000');
-      });
     });
 </script>
 @endsection
