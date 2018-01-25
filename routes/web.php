@@ -12,9 +12,10 @@
 Auth::routes();
 Route::prefix('')->group(function () {
     Route::get('/', 'ClientController@index')->name('index');
-    Route::post('/store', 'ClientController@storeUserData')->name('store');
-    Route::get('/voir_details/{uuid}', 'ClientController@details')->name('details');
-    Route::get('/payment/event/{uuid}', 'ClientController@paymentWizard')->name('payment');
+    Route::post('/store', 'ClientController@storeData')->name('store');
+    Route::get('/show_details/event/uuid={uuid}', 'ClientController@details')->name('details');
+    Route::get('/payment/event/uuid={uuid}', 'ClientController@paymentWizard')->name('payment');
+    Route::post('/buy', 'ClientController@buy')->name('buy');
     /*Route::get('login/facebook', 'SocialLoginController@redirectToProvider')->name('login.facebook');
     Route::get('login/facebook/callback', 'SocialLoginController@handleProviderCallback')->name('facebook.callback');*/
     VisitStats::routes();

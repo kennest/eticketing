@@ -6,11 +6,18 @@ use Illuminate\Http\Request;
 use App\Models\Evenement;
 use App\Models\TypeEvenement;
 use App\Models\Categorie;
+use Illuminate\Support\Collection;
 
 class ClientController extends Controller
 {
+    public $class_ticket=[];
+    public function __construct()
+    {
+    }
+
     public function index()
     {
+        //dd(session('class'));
         $events=Evenement::all();
 
         $types=TypeEvenement::all();
@@ -55,10 +62,21 @@ class ClientController extends Controller
         return view('client.pages.payment', compact('events', 'types', 'categories', 'event', 'client'));
     }
 
-    public function storeUserData(Request $request)
+    public function storeData(Request $request)
     {
         if ($request->ajax()) {
-            if (session(['user'=> $request->input('user')])) {
+            $flag=$request->input('flag');
+            if ($flag) {
+                switch ($flag) {
+                    case 'user_data':
+                    session(['user'=> $request->input('user')]);
+                        break;
+                    case 'payment_data':
+                    session(['payment'=> $request->input('payment')]);
+                        break;
+                    default:
+                         echo "401 unauthorized";
+                }
                 return response()->json('success');
             } else {
                 return response()->json('error');
@@ -66,7 +84,14 @@ class ClientController extends Controller
         }
     }
 
+    public function getData(Request $request)
+    {
+    }
+
+
     public function buy()
     {
+        if ($request->ajax()) {
+        }
     }
 }

@@ -87,7 +87,7 @@
                     <tr>
                       <th scope="row">{{$ct->class}}</th>
                       <td>
-                        <input type="number" class="form-control" id="{{$ct->class}}" value="0"  min="0" max="{{$ct->quantity}}">
+                        <input type="number" ticket-class="{{$ct->class}}" class="form-control qte" id="{{$ct->class}}" value="0"  min="0" max="{{$ct->quantity}}">
                       </td>
                       <td >
                           <input type="number" class="form-control" id="{{$ct->class}}_price" value="{{$ct->price}}" disabled>
@@ -108,15 +108,25 @@
                 </table>
               </div>
               <div class="col-12">
-                <div class="alert alert-success" role="alert">
+                <div class="alert alert-default" role="alert">
                     <h6 class="alert-heading">Quels sont les numeros qui doivents recevoir les tickets?</h6>
                     <p></p>
                     <hr>
                     <div class="form-group">
-                        <button class="btn btn-success" id="btn-add-dest">Ajouter un numero ...</button>
-                        <p>&nbsp;</p>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-success active">
+                          <input type="radio" name="options" id="unique" autocomplete="off" checked> Numero Unique
+                        </label>
+                        <label class="btn btn-success">
+                          <input type="radio" name="options" id="plusieurs" autocomplete="off"> Plusieurs numeros
+                        </label>
                       </div>
-                    <p class="mb-0">Lancez vous!</p>
+                        <p>&nbsp;</p>
+                        <div class="form-group" id="destinataire">
+
+                        </div>
+                      </div>
+                    <p class="mb-0">Sycapay.net</p>
                   </div>
               </div>
             </div>
@@ -129,7 +139,9 @@
       <div class="modal-footer">
         <div id="wizardBtn">
           <button type="button" class="btn btn-common prev-step">Retour</button>
-          <button type="button" class="btn btn-warning next-step" data-action1="{{route('store')}}" data-action2="">Enregistrer et continuer...</button>
+          <button type="button" class="btn btn-warning next-step" data-action="{{route('store')}}">Enregistrer et continuer...</button>
+          <button type="button" class="btn btn-warning last-step" data-action="{{route('store')}}">Passer au paiement</button>
+          <button type="button" class="btn btn-success buy" data-action="{{route('buy')}}">Finaliser</button>
         </div>
       </div>
     </div>
@@ -141,10 +153,14 @@
 <script>
   $(document).ready(function(){
     var user_data;
+    var payment_data;
+    var ticket={};
     $("#result .card").hide();
     $("#fb-logout").hide();
     $("#fb-loader").hide('slow');
     $(".next-step").prop("disabled", true);
+    $(".last-step").hide();
+    $(".buy").hide();
   });
   //JS pour les Tabs
   $('#myTab a').on('click', function (e) {
@@ -159,10 +175,12 @@
       user_data.number=number;
       $.ajax({
         type: "POST",
-        url:$(this).attr('data-action1'),
+        url:$(this).attr('data-action'),
         dataType: 'json',
-        data: { 'user': user_data ,'_token': '{{ csrf_token()}}'},
+        data: { 'user': user_data ,'_token': '{{ csrf_token()}}','flag':'user_data'},
         success: function(resp) {
+          $(".next-step").hide();
+          $(".last-step").show();
           $('#myTab a[href="#choice"]').removeClass('disabled');
           $('#myTab li:eq(1) a').tab('show');
         },    
@@ -172,7 +190,43 @@
       $("#number").css('background-color','red');
       $("#number").focus();
     }
-    
+  });
+
+  $(".last-step").click(function (e) {
+    e.preventDefault();
+      $.ajax({
+        type: "POST",
+        url:$(this).attr('data-action'),
+        dataType: 'json',
+        data: { 'payment': payment_data ,'_token': '{{ csrf_token()}}','flag':'payment_data'},
+        success: function(resp) {
+          $(".last-step").hide();
+          $(".buy").show();
+          $('#myTab a[href="#payment"]').removeClass('disabled');
+          $('#myTab li:eq(2) a').tab('show');
+        },    
+      });
+  });
+
+  $("#plusieurs").change(function (e) {
+    e.preventDefault();
+    $("#destinataire").html("");
+    $("#cart .qte").each(function(){
+      var qte=$(this).val();
+      alert(qte+' :'+$(this).attr('ticket-class'));
+      //var class=$(this).attr('ticket-class');
+      for(i=1;i<=qte;i++){
+        var input="<input class='form-control "+$(this).attr('ticket-class')+"_num'  placeholder='"+$(this).attr('ticket-class')+"' /><br/>";
+        $("#destinataire").append(input);
+      }
+    });
+  });
+
+  $("#unique").change(function (e) {
+    e.preventDefault();
+    $("#destinataire").html("");
+    var input="<input class='form-control dest' placeholder='Numero...' /><br/>"
+    $("#destinataire").html(input);
   });
 
 //Auto-Calcul des valeurs du panier
@@ -182,12 +236,14 @@ $( "#cart .form-control" ).change(function() {
   var price=$("#"+id+"_price").val();
   var mt=Math.round($("#"+id+"_total").val(qte*price));
   var tot=0;
+  ticket={'class':id,'qte':qte};
+
   $("*[id*='_total']").each(function (i, el) {
     //It'll be an array of elements
    var x=$(this).val();
    tot=(parseInt(tot)+parseInt(x)); 
 });
-  $("#montant").val(tot)
+  $("#montant").val(tot);
 });
 
 
