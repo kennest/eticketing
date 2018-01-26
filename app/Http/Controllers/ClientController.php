@@ -17,7 +17,7 @@ class ClientController extends Controller
 
     public function index()
     {
-        //dd(session('class'));
+        dd(session()->all());
         $events=Evenement::all();
 
         $types=TypeEvenement::all();
@@ -72,7 +72,8 @@ class ClientController extends Controller
                     session(['user'=> $request->input('user')]);
                         break;
                     case 'payment_data':
-                    session(['payment'=> $request->input('payment')]);
+                    session(['payment'=> $request->input('payment_data')]);
+                    $request->session()->push('payment.number', session('user')['number']);
                         break;
                     default:
                          echo "401 unauthorized";

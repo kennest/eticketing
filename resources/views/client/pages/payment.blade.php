@@ -55,7 +55,7 @@
                   </div>
                 </div>
               </div>
-              <input type="text" id="number" name="number" placeholder="Numero de  telephone..." class="form-control col-3" autofocus>
+              <input type="text" id="number" name="number" placeholder="Numero de  telephone..." class="form-control col-3 number" autofocus>
               <a href="#" class="btn btn-info" id="fb-login">
                 <i class="fa fa-facebook"></i>  Continuer avec Facebook
               </a>
@@ -87,10 +87,10 @@
                     <tr>
                       <th scope="row">{{$ct->class}}</th>
                       <td>
-                        <input type="number" ticket-class="{{$ct->class}}" class="form-control qte" id="{{$ct->class}}" value="0"  min="0" max="{{$ct->quantity}}">
+                        <input type="number" ticket-class="{{$ct->class}}" class="form-control qte" id="{{$ct->class}}" value="0" min="0" max="{{$ct->quantity}}">
                       </td>
-                      <td >
-                          <input type="number" class="form-control" id="{{$ct->class}}_price" value="{{$ct->price}}" disabled>
+                      <td>
+                        <input type="number" class="form-control" id="{{$ct->class}}_price" value="{{$ct->price}}" disabled>
                       </td>
                       <td>
                         <input type="number" class="form-control" id="{{$ct->class}}_total" value="0" disabled>
@@ -99,35 +99,34 @@
                     </tr>
                     @endforeach
                     <tr></tr>
-                      <td colspan="3" scope="row">Total</td>
-                      <td>
-                        <input type="number" class="form-control" id="montant" value="0" disabled>
-                      </td>
+                    <td colspan="3" scope="row">Total</td>
+                    <td>
+                      <input type="number" class="form-control" id="montant" value="0" disabled>
+                    </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
               <div class="col-12">
                 <div class="alert alert-default" role="alert">
-                    <h6 class="alert-heading">Quels sont les numeros qui doivents recevoir les tickets?</h6>
-                    <p></p>
-                    <hr>
-                    <div class="form-group">
-                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-success active">
+                  <h6 class="alert-heading">Quels sont les numeros qui doivents recevoir les tickets?</h6>
+                  <p></p>
+                  <hr>
+                  <div class="form-group">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                      <label class="btn btn-success active">
                           <input type="radio" name="options" id="unique" autocomplete="off" checked> Numero Unique
                         </label>
-                        <label class="btn btn-success">
+                      <label class="btn btn-success">
                           <input type="radio" name="options" id="plusieurs" autocomplete="off"> Plusieurs numeros
                         </label>
-                      </div>
-                        <p>&nbsp;</p>
-                        <div class="form-group" id="destinataire">
-
-                        </div>
-                      </div>
-                    <p class="mb-0">Sycapay.net</p>
+                    </div>
+                    <p>&nbsp;</p>
+                    <div class="form-group" id="destinataire">
+                    </div>
                   </div>
+                  <p class="mb-0">Sycapay.net</p>
+                </div>
               </div>
             </div>
           </div>
@@ -151,23 +150,28 @@
  
 @section('scripts')
 <script>
+  
   $(document).ready(function(){
     var user_data;
-    var payment_data;
+    var payment_data={};
     var ticket={};
     $("#result .card").hide();
     $("#fb-logout").hide();
     $("#fb-loader").hide('slow');
     $(".next-step").prop("disabled", true);
     $(".last-step").hide();
+    $(".prev-step").hide();
     $(".buy").hide();
+    $("#unique").trigger('change');
   });
+
   //JS pour les Tabs
   $('#myTab a').on('click', function (e) {
       e.preventDefault()
       $(this).tab('show')
     });
-    //Au click sur le btn save et continue on store les infos en session et on continue a l'etape suivante
+
+    //Au click sur le btn "ENREGISTRER ET CONTINUER..." on store les infos en session et on continue a l'etape suivante
   $(".next-step").click(function (e) {
     e.preventDefault()
     var number=$("#number").val();
@@ -180,6 +184,7 @@
         data: { 'user': user_data ,'_token': '{{ csrf_token()}}','flag':'user_data'},
         success: function(resp) {
           $(".next-step").hide();
+          $(".prev-step").show();
           $(".last-step").show();
           $('#myTab a[href="#choice"]').removeClass('disabled');
           $('#myTab li:eq(1) a').tab('show');
@@ -192,13 +197,23 @@
     }
   });
 
+  //Au clique sur le btn "PASSER AU PAIEMENT"
   $(".last-step").click(function (e) {
     e.preventDefault();
+    var montant=$("#montant").val();
+    var destinataires=[];
+    $(".destin_tel").each(function(){
+       var val=$(this).val();
+       var num={'numero':val,'class':$(this).attr("classe")};
+       destinataires.push(num);
+    });
+    var payment_data={'montant':montant,'destinataires':destinataires}
+    console.log('payment:',payment_data);
       $.ajax({
         type: "POST",
         url:$(this).attr('data-action'),
         dataType: 'json',
-        data: { 'payment': payment_data ,'_token': '{{ csrf_token()}}','flag':'payment_data'},
+        data: { 'payment_data': payment_data ,'_token': '{{ csrf_token()}}','flag':'payment_data'},
         success: function(resp) {
           $(".last-step").hide();
           $(".buy").show();
@@ -208,36 +223,37 @@
       });
   });
 
-  $("#plusieurs").change(function (e) {
+  //Genere les champs pour plusieurs numeros
+  $("#plusieurs,.qte").change(function (e) {
     e.preventDefault();
     $("#destinataire").html("");
     $("#cart .qte").each(function(){
       var qte=$(this).val();
-      alert(qte+' :'+$(this).attr('ticket-class'));
-      //var class=$(this).attr('ticket-class');
-      for(i=1;i<=qte;i++){
-        var input="<input class='form-control "+$(this).attr('ticket-class')+"_num'  placeholder='"+$(this).attr('ticket-class')+"' /><br/>";
-        $("#destinataire").append(input);
-      }
+      if(qte>0){
+        for(i=1;i<=qte;i++){
+          var input="<input name='destin_tel[]' classe="+$(this).attr('ticket-class')+" class='form-control destin_tel "+$(this).attr('ticket-class')+"_num'  placeholder='"+$(this).attr('ticket-class')+"' /><br/>";
+          $("#destinataire").append(input);
+        }
+      } 
     });
   });
 
+  //Genere le champ de numero unique
   $("#unique").change(function (e) {
     e.preventDefault();
     $("#destinataire").html("");
-    var input="<input class='form-control dest' placeholder='Numero...' /><br/>"
+    var input="<input type='text' classe='all' name='destin_tel[]' class='form-control destin_tel unique' placeholder='Numero...' /><br/>"
     $("#destinataire").html(input);
   });
 
 //Auto-Calcul des valeurs du panier
-$( "#cart .form-control" ).change(function() {
+$(".qte").change(function() {
   var id=$(this).attr('id');
   var qte=Math.round($("#"+id).val());
   var price=$("#"+id+"_price").val();
   var mt=Math.round($("#"+id+"_total").val(qte*price));
   var tot=0;
   ticket={'class':id,'qte':qte};
-
   $("*[id*='_total']").each(function (i, el) {
     //It'll be an array of elements
    var x=$(this).val();
@@ -246,12 +262,31 @@ $( "#cart .form-control" ).change(function() {
   $("#montant").val(tot);
 });
 
-
-  //Au clique sur le btn Back on revient au Tab precedent
+  //Au clique sur le btn "RETOUR" on revient au Tab precedent
   $(".prev-step").click(function (e) {
-    e.preventDefault()
+    e.preventDefault();
     $('#myTab a[href="#account"]').tab('show');
   });
+
+  //Finalisation de l'achat au click sur le btn "FINALISATION"
+  $(".buy").click(function (e) {
+    e.preventDefault()
+    $.ajax({
+      type: "POST",
+      url:'https://secure.sycapay.net/login',
+      dataType: 'json',
+      async: false,
+      crossDomain: true,
+      data: { 'X-SYCA-MERCHANDID':'C_56713FBF3E6A4','X-SYCA-APIKEY':'pk_syca_d49497468317152423d42aaff0d1166fc1b9522d','X-SYCA-REQUEST-DATA-FORMAT':'JSON','X-SYCA-RESPONSE-DATA-FORMAT':'JSON','Montant':1000,'Curr':'XOF'},
+      success: function(resp) {
+        $(".last-step").hide();
+        $(".buy").show();
+        $('#myTab a[href="#payment"]').removeClass('disabled');
+        $('#myTab li:eq(2) a').tab('show');
+      },    
+    });
+  });
+
   //Au click sur le btn facebook login on recupere les infos de l'utilisateur
   $("#fb-login").click(function (e) {
     e.preventDefault()
@@ -280,18 +315,20 @@ $( "#cart .form-control" ).change(function() {
         $("#fb-login").show('slow');
        console.log('User cancelled login or did not fully authorize.');
       }
-  },{scope: 'email,public_profile,user_birthday,user_friends'});
+  },{scope:'email,public_profile,user_birthday,user_friends'});
   });
+
   //Deconnecte de Facebook
   $("#fb-logout").click(function(e){
     e.preventDefault();
     FB.logout(user_data.authResponse);
   });
+
 </script>
 <script src="{{asset('js/jquery.mask.min.js')}}"></script>
 <script>
-    $(document).ready(function(){
-      $('#number').mask('00000000');
+  $(document).ready(function(){
+      $('.number').mask('00000000');
     });
 </script>
 @endsection
