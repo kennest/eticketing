@@ -17,7 +17,7 @@ class ClientController extends Controller
 
     public function index()
     {
-        dd(session()->all());
+        //dd(session()->all());
         $events=Evenement::all();
 
         $types=TypeEvenement::all();
@@ -48,18 +48,14 @@ class ClientController extends Controller
 
     public function paymentWizard($uuid=null)
     {
-        $client=session('client');
-        $events=Evenement::all();
-
-        $types=TypeEvenement::all();
-        $categories=Categorie::all();
         if ($event = Evenement::where('uuid', $uuid)->first()) {
             $event->load('classeTickets', 'lieu', 'type');
         } else {
             $event = null;
         }
         //dd($event);
-        return view('client.pages.payment', compact('events', 'types', 'categories', 'event', 'client'));
+       session(['event'=>$event]);
+       return redirect()->route('wizard.step');
     }
 
     public function storeData(Request $request)
@@ -74,6 +70,7 @@ class ClientController extends Controller
                     case 'payment_data':
                     session(['payment'=> $request->input('payment_data')]);
                     $request->session()->push('payment.number', session('user')['number']);
+                    $request->session()->push('payment.ccode', session('user')['ccode']);
                         break;
                     default:
                          echo "401 unauthorized";

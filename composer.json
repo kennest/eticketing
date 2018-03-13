@@ -16,6 +16,7 @@
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "mongodb/mongodb": "^1.2",
+        "smajti1/laravel-wizard": "^1.1",
         "voerro/laravel-visitor-tracker": "^1.0"
     },
     "require-dev": {
@@ -30,7 +31,8 @@
             "database/factories"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "App\\Wizard\\Steps\\": "app/Steps"
         }
     },
     "autoload-dev": {

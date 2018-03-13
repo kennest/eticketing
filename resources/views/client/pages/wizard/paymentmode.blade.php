@@ -1,0 +1,1 @@
+<h2>Moyen de payment</h2>
