@@ -39,7 +39,7 @@ class PaymentController extends Controller
             abort(404);
         }
     
-        return view('client.pages.wizard.base', compact('step','categories','event'));
+        return view('client.pages.wizard.base', compact('step', 'categories', 'event'));
     }
     
     public function wizardPost(Request $request, $step = null)
@@ -54,5 +54,16 @@ class PaymentController extends Controller
         $step->process($request);
     
         return redirect()->route('wizard.step', [$this->wizard->nextSlug()]);
+    }
+
+    public function buy()
+    {
+        $sycapay=\Sycapay::getInstance();
+        $resultat=$sycapay->hash_call();
+        dd($resultat);
+    }
+
+    public function reservation()
+    {
     }
 }

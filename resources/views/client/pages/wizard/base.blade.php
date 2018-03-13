@@ -1,8 +1,16 @@
 @extends('../../../layouts/app') 
+@section('styles')
+<style>
+  .img-link:hover{
+    background-color: aqua;
+  }
+</style>
+@endsection
 @section('content')
-<ol>
+<ol class="list-inline">
     @foreach($wizard->all() as $key => $_step)
-        <li>
+        <li class="list-inline-item">
+          <h2>
             @if($step->index == $_step->index)
                 <strong>{{ $_step::$label }}</strong>
             @elseif($step->index > $_step->index)
@@ -10,13 +18,20 @@
             @else
                 {{ $_step::$label }}
             @endif
+          </h2>
         </li>
+        <li class="list-inline-item">
+            <h2> > </h2>
+          </li>
     @endforeach
 </ol>
 <form action="{{ route('wizard.step.post', ['step'=>$step::$slug]) }}" method="POST">
     {{ csrf_field() }}
  @include('errors.validation')
+ <div class="row">
     @include($step::$view, compact('step', 'errors'))
+ </div>
+    
 
     <span>Etape {{ $step->number }}/{{ $wizard->limit() }}</span>
 

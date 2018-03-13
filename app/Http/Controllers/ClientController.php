@@ -32,6 +32,7 @@ class ClientController extends Controller
 
         return view('client.index', compact('events', 'types', 'categories'));
     }
+    
     public function details($uuid=null)
     {
         $events=Evenement::all();
@@ -54,8 +55,8 @@ class ClientController extends Controller
             $event = null;
         }
         //dd($event);
-       session(['event'=>$event]);
-       return redirect()->route('wizard.step');
+        session(['event'=>$event]);
+        return redirect()->route('wizard.step');
     }
 
     public function storeData(Request $request)

@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="{{asset('css/animate.css')}}">
   <link rel="stylesheet" href="{{asset('css/main.css')}}">
   <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
+  @yield('styles')
 </head>
 <body>
   <header id="hero-area">

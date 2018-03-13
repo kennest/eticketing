@@ -2,7 +2,7 @@
 namespace App\Wizard\Steps;
 
 use Smajti1\Laravel\Step;
-
+use Illuminate\Http\Request;
 
 class SetCartDataStep extends Step
 {
@@ -11,7 +11,7 @@ class SetCartDataStep extends Step
     public static $slug = 'set-cart-data';
     public static $view = 'client.pages.wizard.cartdata';
 
-    public function process(\Illuminate\Http\Request $request)
+    public function process(Request $request)
     {
         // for example, create user
     
@@ -19,10 +19,10 @@ class SetCartDataStep extends Step
         $this->saveProgress($request);
     }
 
-    public function rules(\Illuminate\Http\Request $request = null): array
+    public function rules(Request $request = null): array
     {
         return [
-            'montant' => 'required|numeric',
+            'montant' => 'required|integer',
             'destinataires'=>'required'
         ];
     }

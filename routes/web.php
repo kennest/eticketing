@@ -15,10 +15,11 @@ Route::prefix('')->group(function () {
     Route::post('/store', 'ClientController@storeData')->name('store');
     Route::get('/show_details/event/uuid={uuid}', 'ClientController@details')->name('details');
     Route::get('/payment/event/uuid={uuid}', 'ClientController@paymentWizard')->name('payment');
-    Route::post('/buy', 'ClientController@buy')->name('buy');
 
     Route::get('wizard/payment/{step?}', 'PaymentController@wizard')->name('wizard.step');
     Route::post('wizard/payment/{step}', 'PaymentController@wizardPost')->name('wizard.step.post');
+    Route::get('payment/buy','PaymentController@buy')->name('wizard.buy');
+    Route::get('payment/reservation','PaymentController@reservation')->name('wizard.reservation');
     /*Route::get('login/facebook', 'SocialLoginController@redirectToProvider')->name('login.facebook');
     Route::get('login/facebook/callback', 'SocialLoginController@handleProviderCallback')->name('facebook.callback');*/
     VisitStats::routes();
