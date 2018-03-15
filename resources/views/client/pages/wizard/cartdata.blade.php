@@ -1,4 +1,5 @@
-<div class="row text-center">
+<div class="col-12">
+  <div class="row text-center">
     <div class="col-12">
       <h6>Panier</h6>
       <table class="table table-primary" id="cart">
@@ -59,3 +60,4 @@
         </div>
     </div>
   </div>
+</div>

@@ -1,10 +1,13 @@
-<div class="alert alert-info" role="alert" id="alert">
+<div class="col-12">
+  <div class="alert alert-info" role="alert" id="alert">
     <h4 class="alert-heading">Important</h4>
     <p class="lead">Pour vous eviter de remplir un long formulaire,cliquez sur le bouton ci-dessous pour que <br><b class="alert-link"><i class="fa fa-facebook-official"></i>Facebook</b>                nous renvois les donnees necessaires</p>
     <em>
           <p class="lead">Merci de votre comprehension</p>
       </em>
   </div>
+</div>
+<div class="col-12">
   <div class="form-group">
     <div id="result">
       <div class="card text-center">
@@ -34,3 +37,4 @@
         <i class="fa fa-facebook"></i>  Ce n'est pas mon compte facebook...
       </a>
   </div>
+</div>

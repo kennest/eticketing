@@ -1,53 +1,54 @@
 @extends('../../../layouts/app') 
 @section('styles')
 <style>
-  .img-link:hover{
+  .img-link:hover {
     background-color: aqua;
+  }
+  #wz-content{
+    position: relative;
+    margin-top: 5%;
+    margin-bottom: 2%;
   }
 </style>
 @endsection
+ 
 @section('content')
-<ol class="list-inline">
+<div id="wz-content">
+  <ol class="nav nav-pills">
     @foreach($wizard->all() as $key => $_step)
-        <li class="list-inline-item">
-          <h2>
-            @if($step->index == $_step->index)
-                <strong>{{ $_step::$label }}</strong>
-            @elseif($step->index > $_step->index)
-                <a href="{{ route('wizard.step', [$_step::$slug]) }}">{{ $_step::$label }}</a>
-            @else
-                {{ $_step::$label }}
-            @endif
-          </h2>
+    <li class="nav-item">
+      <strong>
+        @if($step->index == $_step->index)
+        <li class="nav-item">
+          <a class="nav-link active" href="#">{{ $_step::$label }}</a>
         </li>
-        <li class="list-inline-item">
-            <h2> > </h2>
-          </li>
+        @elseif($step->index > $_step->index)
+        <a class="nav-link" href="{{route('wizard.step', [$_step::$slug])}}">{{ $_step::$label }}</a>
+         @else 
+         <li class="nav-item">
+          <a class="nav-link disabled" href="#">{{ $_step::$label }}</a>
+        </li>
+          @endif
+      </strong>
+    </li>
     @endforeach
-</ol>
-<form action="{{ route('wizard.step.post', ['step'=>$step::$slug]) }}" method="POST">
+  </ol>
+  <form action="{{ route('wizard.step.post', ['step'=>$step::$slug]) }}" method="POST">
     {{ csrf_field() }}
- @include('errors.validation')
- <div class="row">
+    @include('errors.validation')
+    <div class="row">
     @include($step::$view, compact('step', 'errors'))
- </div>
-    
-
-    <span>Etape {{ $step->number }}/{{ $wizard->limit() }}</span>
-
-    @if ($wizard->hasPrev())
-        <a class="btn btn-warning" href="{{ route('wizard.step', ['step' => $wizard->prevSlug()]) }}">Back</a>
-    @else
-        <a class="btn btn-warning" href="#">Back</a>
-    @endif
-
-    @if ($wizard->hasNext())
-        <button class="btn btn-info" type="submit">Next</button>
-    @else
-        <button class="btn btn-success" type="submit">Done</button>
-    @endif
-</form>
+    </div>
+  
+    <span>Etape {{ $step->number }}/{{ $wizard->limit() }}</span> @if ($wizard->hasPrev())
+    <a class="btn btn-warning" href="{{ route('wizard.step', ['step' => $wizard->prevSlug()]) }}">Back</a> @else
+    <a class="btn btn-warning" href="#">Back</a> @endif @if ($wizard->hasNext())
+    <button class="btn btn-info" type="submit">Next</button> @else
+    <button class="btn btn-success" type="submit">Done</button> @endif
+  </form>
+</div>
 @endsection
+ 
 @section('scripts')
 <script>
   $(document).ready(function(){
@@ -90,7 +91,6 @@
       $("#number").focus();
     }
   });
-
   $(".last-step").click(function (e) {
     e.preventDefault();
       $.ajax({
@@ -106,7 +106,6 @@
         },    
       });
   });
-
   $("#plusieurs").change(function (e) {
     e.preventDefault();
     $("#destinataire").html("");
@@ -120,14 +119,12 @@
       }
     });
   });
-
   $("#unique").change(function (e) {
     e.preventDefault();
     $("#destinataire").html("");
     var input="<input class='form-control dest' name='destinataires[]' placeholder='Numero...' /><br/>"
     $("#destinataire").html(input);
   });
-
 //Auto-Calcul des valeurs du panier
 $( "#cart .form-control" ).change(function() {
   var id=$(this).attr('id');
@@ -136,7 +133,6 @@ $( "#cart .form-control" ).change(function() {
   var mt=Math.round($("#"+id+"_total").val(qte*price));
   var tot=0;
   ticket={'class':id,'qte':qte};
-
   $("*[id*='_total']").each(function (i, el) {
     //It'll be an array of elements
    var x=$(this).val();
@@ -144,7 +140,6 @@ $( "#cart .form-control" ).change(function() {
 });
   $("#montant").val(tot);
 });
-
 
   //Au clique sur le btn Back on revient au Tab precedent
   $(".prev-step").click(function (e) {
@@ -189,7 +184,7 @@ $( "#cart .form-control" ).change(function() {
 </script>
 <script src="{{asset('js/jquery.mask.min.js')}}"></script>
 <script>
-    $(document).ready(function(){
+  $(document).ready(function(){
       $('#number').mask('00000000');
     });
 </script>

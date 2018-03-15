@@ -9,6 +9,8 @@ use App\Models\Categorie;
 use App\Wizard\Steps\SetCartDataStep;
 use App\Models\Evenement;
 use App\Wizard\Steps\SetPaymentModeStep;
+use App\Models\Ticket;
+use App\Models\Client;
 
 class PaymentController extends Controller
 {
@@ -22,7 +24,7 @@ class PaymentController extends Controller
     
     public function __construct()
     {
-        $this->wizard = new Wizard($this->steps, $sessionKeyName = 'user');
+        $this->wizard = new Wizard($this->steps, $sessionKeyName = 'payment');
     }
     
     public function wizard($step = null)
@@ -60,10 +62,23 @@ class PaymentController extends Controller
     {
         $sycapay=\Sycapay::getInstance();
         $resultat=$sycapay->hash_call();
+        $categories=Categorie::all();
+
+        if ($resultat['desc']=="SUCCESS") {
+            $token=$resultat['token'];
+            session(['token'=>$token]);
+            return view('client.pages.wizard.buy', compact('categories'));
+        }
         dd($resultat);
     }
 
     public function reservation()
     {
+    }
+
+    public function generate_ticket()
+    {
+        $ticket=new Ticket();
+        $acheteur=new Client();
     }
 }

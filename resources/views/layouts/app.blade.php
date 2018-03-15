@@ -34,7 +34,7 @@
 <body>
   <header id="hero-area">
     <div class="overlay"></div>
-    <nav class="navbar navbar-toggleable-sm fixed-top navbar-light bg-faded">
+    <nav class="navbar navbar-toggleable-sm fixed-top navbar-light bg-faded" style="background-color: #0fa1dd;">
       <div class="container">
         <a class="navbar-brand" href="index-2.html"><img src="{{asset('img/logo.png')}}" alt=""></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
@@ -65,6 +65,7 @@
         </div>
       </div>
     </nav>
+    @if(Request::is('/'))
     <div class="container">
       <div class="row justify-content-md-center">
         <div class="col-md-10">
@@ -108,6 +109,7 @@
         </div>
       </div>
     </div>
+    @endif
   </header>
   <!--section id="about" class="section">
     <div class="container">
@@ -347,7 +349,7 @@
       </div>
     </div>
   </section-->
-  <footer>
+  <footer class="footer">
     <section class="footer-Content">
       <div class="container wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
         <h3 class="logo-title">Basic</h3>
@@ -423,7 +425,7 @@
         </div>
       </div>
     </section>
-    <div id="copyright">
+    <div id="copyright" class="">
       <div class="container">
         <div class="row">
           <div class="col-md-12">

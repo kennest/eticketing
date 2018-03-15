@@ -18,8 +18,9 @@ Route::prefix('')->group(function () {
 
     Route::get('wizard/payment/{step?}', 'PaymentController@wizard')->name('wizard.step');
     Route::post('wizard/payment/{step}', 'PaymentController@wizardPost')->name('wizard.step.post');
-    Route::get('payment/buy','PaymentController@buy')->name('wizard.buy');
-    Route::get('payment/reservation','PaymentController@reservation')->name('wizard.reservation');
+    Route::get('payment/buy', 'PaymentController@buy')->name('wizard.buy');
+    Route::get('payment/reservation', 'PaymentController@reservation')->name('wizard.reservation');
+    Route::get('payment/buy/success', 'PaymentController@generate_ticket')->name('success');
     /*Route::get('login/facebook', 'SocialLoginController@redirectToProvider')->name('login.facebook');
     Route::get('login/facebook/callback', 'SocialLoginController@handleProviderCallback')->name('facebook.callback');*/
     VisitStats::routes();
